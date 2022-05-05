@@ -8,8 +8,8 @@ jobs:
   build:
     strategy:
       matrix:
-        clang-version: [ 3.9, 4, 5, 6, 7, 8, 9, 10, 11, 12, 12.0.1, 13, 14 ]
-        os: [ linux, macosx, windows ]
+        clang-version: [ 14 ]
+        os: [ linux ]
         include:
           - clang-version: 3.9
             release: llvm-project-3.9.1
@@ -166,7 +166,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: clang-tools
-        path: "${{ matrix.release }}${{ matrix.bindir }}/clang-*-${{ env.suffix }}*"
+        path: "${{ matrix.release }}${{ matrix.bindir }}/clang*-${{ env.suffix }}*"
         retention-days: 1
   draft-release:
     runs-on: ubuntu-20.04
@@ -183,5 +183,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          file: "clang-*"
+          file: "clang*"
           draft: true
